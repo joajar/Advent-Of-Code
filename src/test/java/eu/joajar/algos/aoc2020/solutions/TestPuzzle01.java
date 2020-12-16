@@ -5,8 +5,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPuzzle01 {
+
+    private static final AbstractPuzzleDataReader PUZZLE = new Puzzle01("src/main/resources/InputPuzzle01.txt");
+
     @Test
     public void day01_tests() {
-        assertEquals(259716, Puzzle01.part1result());
+        assertEquals("259716", PUZZLE.solveFirstPuzzle());
     }
+
 }
