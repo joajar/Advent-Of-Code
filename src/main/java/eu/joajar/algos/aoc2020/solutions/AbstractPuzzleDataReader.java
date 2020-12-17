@@ -14,7 +14,7 @@ public abstract class AbstractPuzzleDataReader {
         this._fileName = _fileName;
     }
 
-    public abstract String solveFirstPuzzle();
+    public abstract String solveFirstPart();
 
     public String[] getData() {
         BufferedReader bufferedReader = null;
