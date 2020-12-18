@@ -16,6 +16,8 @@ public abstract class AbstractPuzzleDataReader {
 
     public abstract String solveFirstPart();
 
+    public abstract String solveSecondPart();
+
     public String[] getData() {
         BufferedReader bufferedReader = null;
         try {
