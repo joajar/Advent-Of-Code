@@ -13,13 +13,28 @@ public class Puzzle01 extends AbstractPuzzleDataReader {
     }
 
     @Override
-    public String solveFirstPart() throws IllegalArgumentException {
-        return findSolution(true);
+    public int getDayNumber() {
+        return 1;
+    }
+
+    @Override
+    public String solveFirstPart() {
+        String toReturn;
+        try {
+            return findSolution(true);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
     }
 
     @Override
     public String solveSecondPart() throws IllegalArgumentException {
-        return findSolution(false);
+        String toReturn;
+        try {
+            return findSolution(false);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -44,10 +59,10 @@ public class Puzzle01 extends AbstractPuzzleDataReader {
     private Stream<Set<String>> produceStreamOfSetsOfTriplets(String[] strings) {
         return Arrays.stream(strings)
                 .flatMap(s3 -> Arrays.stream(strings)
-                        .filter(s1 -> !s1.equals(s3))
+                        .filter(s1 -> s1.compareTo(s3) > 0)
                         .flatMap(s1 -> Arrays.stream(strings)
-                                .filter(s2 -> !s2.equals(s1))
-                                .filter(s2 -> !s2.equals(s3))
+                                .filter(s2 -> s1.compareTo(s2) > 0)
+                                .filter(s2 -> s2.compareTo(s3) > 0)
                                 .map(s2 -> Set.of(s1, s2, s3))
                         )
                 );
@@ -56,12 +71,12 @@ public class Puzzle01 extends AbstractPuzzleDataReader {
     private Stream<Set<String>> produceStreamOfSetsOfPairs(String[] strings) {
         return Arrays.stream(strings)
                 .flatMap(s1 -> Arrays.stream(strings)
-                        .filter(s2 -> !s1.equals(s2))
+                        .filter(s2 -> s1.compareTo(s2) > 0)
                         .map(s2 -> Set.of(s1, s2))
                 );
     }
 
-    private Set<String> findSetSummingTo2020(Stream<Set<String>> setStream) {
+    private Set<String> findSetSummingTo2020(Stream<Set<String>> setStream) throws IllegalArgumentException {
         return setStream
                 .filter(Puzzle01::hasSum2020)
                 .findFirst()
@@ -74,7 +89,7 @@ public class Puzzle01 extends AbstractPuzzleDataReader {
                 .mapToInt(Integer::parseInt).sum() == 2020;
     }
 
-    private static String multiply(Collection<String> collection) {
+    private static String multiply(Collection<String> collection) throws IllegalArgumentException {
         return collection
                 .stream()
                 .reduce((a, b) -> String.valueOf(Integer.parseInt(a) * Integer.parseInt(b)))

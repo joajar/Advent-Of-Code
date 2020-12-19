@@ -14,6 +14,8 @@ public abstract class AbstractPuzzleDataReader {
         this._fileName = _fileName;
     }
 
+    public abstract int getDayNumber();
+
     public abstract String solveFirstPart();
 
     public abstract String solveSecondPart();
