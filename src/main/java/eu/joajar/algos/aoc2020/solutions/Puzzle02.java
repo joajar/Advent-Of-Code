@@ -27,6 +27,16 @@ public class Puzzle02 extends AbstractPuzzleDataReader {
 
     @Override
     public String solveSecondPart() {
-        return "";
+        var strings = getData();
+        int counter = 0;
+        for (String string : strings) {
+            String[] stringsAfterSplitting = string.split(":|-|\\s");
+
+            if ((stringsAfterSplitting[4].charAt(Integer.parseInt(stringsAfterSplitting[0]) - 1) == stringsAfterSplitting[2].charAt(0))
+                ^ (stringsAfterSplitting[4].charAt(Integer.parseInt(stringsAfterSplitting[1]) - 1) == stringsAfterSplitting[2].charAt(0))) {
+                counter++;
+            }
+        }
+        return String.valueOf(counter);
     }
 }
