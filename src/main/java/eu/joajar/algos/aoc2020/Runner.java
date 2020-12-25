@@ -1,9 +1,6 @@
 package eu.joajar.algos.aoc2020;
 
-import eu.joajar.algos.aoc2020.solutions.AbstractPuzzleDataReader;
-import eu.joajar.algos.aoc2020.solutions.Puzzle01;
-import eu.joajar.algos.aoc2020.solutions.Puzzle02;
-import eu.joajar.algos.aoc2020.solutions.Puzzle03;
+import eu.joajar.algos.aoc2020.solutions.*;
 
 import java.util.List;
 
@@ -12,7 +9,8 @@ public class Runner {
     private static final List<AbstractPuzzleDataReader> PUZZLES = List.of(
             new Puzzle01("src/main/resources/InputPuzzle01.txt"),
             new Puzzle02("src/main/resources/InputPuzzle02.txt"),
-            new Puzzle03("src/main/resources/InputPuzzle03.txt")
+            new Puzzle03("src/main/resources/InputPuzzle03.txt"),
+            new Puzzle04("src/main/resources/InputPuzzle04.txt")
     );
 
     public static void main(String[] args) {
