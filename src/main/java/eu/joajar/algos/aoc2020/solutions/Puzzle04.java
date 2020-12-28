@@ -2,9 +2,9 @@ package eu.joajar.algos.aoc2020.solutions;
 
 import java.util.*;
 
-public class Puzzle04 extends AbstractPuzzleDataReader {
-    public Puzzle04(String _fileName) {
-        super(_fileName);
+public class Puzzle04 extends DataReaderAndAbstractPuzzle {
+    public Puzzle04(String fileName) {
+        super(fileName);
     }
 
     @Override

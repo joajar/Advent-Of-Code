@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractPuzzleDataReader {
-    private final String _fileName;
+public abstract class DataReaderAndAbstractPuzzle {
+    private final String fileName;
 
-    public AbstractPuzzleDataReader(String _fileName) {
-        this._fileName = _fileName;
+    public DataReaderAndAbstractPuzzle(String fileName) {
+        this.fileName = fileName;
     }
 
     public abstract int getDayNumber();
@@ -23,7 +23,7 @@ public abstract class AbstractPuzzleDataReader {
     public String[] getData() {
         BufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(new FileReader(_fileName));
+            bufferedReader = new BufferedReader(new FileReader(fileName));
             String row;
             List<String> workingList = new ArrayList<>();
 

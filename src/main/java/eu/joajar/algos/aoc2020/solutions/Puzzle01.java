@@ -7,10 +7,10 @@ import java.util.stream.Stream;
 /**
  * Uses the assumption that the data doesn't contain any duplicates.
  */
-public class Puzzle01 extends AbstractPuzzleDataReader {
+public class Puzzle01 extends DataReaderAndAbstractPuzzle {
 
-    public Puzzle01(String _fileName) {
-        super(_fileName);
+    public Puzzle01(String fileName) {
+        super(fileName);
     }
 
     @Override

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Runner {
 
-    private static final List<AbstractPuzzleDataReader> PUZZLES = List.of(
+    private static final List<DataReaderAndAbstractPuzzle> PUZZLES = List.of(
             new Puzzle01("src/main/resources/InputPuzzle01.txt"),
             new Puzzle02("src/main/resources/InputPuzzle02.txt"),
             new Puzzle03("src/main/resources/InputPuzzle03.txt"),

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPuzzle04 {
-    private static final AbstractPuzzleDataReader PUZZLE = new Puzzle04("src/main/resources/InputPuzzle04.txt");
+    private static final DataReaderAndAbstractPuzzle PUZZLE = new Puzzle04("src/main/resources/InputPuzzle04.txt");
 
     @Test
     public void day04_tests() {

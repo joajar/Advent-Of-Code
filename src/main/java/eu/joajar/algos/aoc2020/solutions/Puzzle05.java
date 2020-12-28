@@ -3,9 +3,9 @@ package eu.joajar.algos.aoc2020.solutions;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Puzzle05 extends AbstractPuzzleDataReader {
-    public Puzzle05(String _fileName) {
-        super(_fileName);
+public class Puzzle05 extends DataReaderAndAbstractPuzzle {
+    public Puzzle05(String fileName) {
+        super(fileName);
     }
 
     @Override

@@ -2,9 +2,9 @@ package eu.joajar.algos.aoc2020.solutions;
 
 import java.math.BigInteger;
 
-public class Puzzle03 extends AbstractPuzzleDataReader {
-    public Puzzle03(String _fileName) {
-        super(_fileName);
+public class Puzzle03 extends DataReaderAndAbstractPuzzle {
+    public Puzzle03(String fileName) {
+        super(fileName);
     }
 
     @Override
