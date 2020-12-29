@@ -19,39 +19,40 @@ public class Puzzle02 extends DataReaderAndAbstractPuzzle {
             Arrays.stream(getData())
             .map(string -> string.split(":\\s|-|\\s"))
             .map(PasswordData::transform)
-            .filter(this::isValid)
+            .filter(this::validateForFirstPart)
             .count()
         );
     }
 
-    private record PasswordData(long lowerBound, long upperBound, char character, String password) {
+    @Override
+    public String solveSecondPart() {
+        return String.valueOf(
+            Arrays.stream(getData())
+            .map(string -> string.split(":\\s|-|\\s"))
+            .map(PasswordData::transform)
+            .filter(this::validateForSecondPart)
+            .count()
+        );
+    }
+
+    private record PasswordData(int lowerBound, int upperBound, char character, String password) {
         private static PasswordData transform(String[] array) {
             return new PasswordData(
-                Long.parseLong(array[0]),
-                Long.parseLong(array[1]),
+                Integer.parseInt(array[0]),
+                Integer.parseInt(array[1]),
                 array[2].charAt(0),
                 array[3]
             );
         }
     }
 
-    private boolean isValid(PasswordData passwordData) {
+    private boolean validateForFirstPart(PasswordData passwordData) {
         var countCharOccurrences = passwordData.password.chars().filter(ch -> ch == passwordData.character).count();
         return passwordData.lowerBound <= countCharOccurrences && countCharOccurrences <= passwordData.upperBound;
     }
 
-    @Override
-    public String solveSecondPart() {
-        var strings = getData();
-        int counter = 0;
-        for (String string : strings) {
-            String[] stringsAfterSplitting = string.split(":\\s|-|\\s");
-
-            if ((stringsAfterSplitting[3].charAt(Integer.parseInt(stringsAfterSplitting[0]) - 1) == stringsAfterSplitting[2].charAt(0))
-                ^ (stringsAfterSplitting[3].charAt(Integer.parseInt(stringsAfterSplitting[1]) - 1) == stringsAfterSplitting[2].charAt(0))) {
-                counter++;
-            }
-        }
-        return String.valueOf(counter);
+    private boolean validateForSecondPart(PasswordData passwordData) {
+        return ((passwordData.password.charAt(passwordData.lowerBound - 1) == passwordData.character)
+            ^ (passwordData.password.charAt(passwordData.upperBound - 1) == passwordData.character));
     }
 }
