@@ -2,6 +2,7 @@ package eu.joajar.algos.aoc2020.solutions;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Puzzle06 extends DataReaderAndAbstractPuzzle {
     public Puzzle06(String fileName) {
@@ -18,17 +19,29 @@ public class Puzzle06 extends DataReaderAndAbstractPuzzle {
         return preparePart1Result(processData(getData()));
     }
 
-    @Override
-    public String solveSecondPart() {
-        return null;
-    }
-
     private static String preparePart1Result(List<Set<Set<Character>>> charList) {
         int counter = 0;
         for (Set<Set<Character>> answersWithinGroup : charList) {
             Set<Character> setOfAnswersWithinGroup = new HashSet<>();
             for (Set<Character> passengerAnswers: answersWithinGroup) {
                 setOfAnswersWithinGroup.addAll(passengerAnswers);
+            }
+            counter += setOfAnswersWithinGroup.size();
+        }
+        return String.valueOf(counter);
+    }
+
+    @Override
+    public String solveSecondPart() {
+        return preparePart2Result(processData(getData()));
+    }
+
+    private static String preparePart2Result(List<Set<Set<Character>>> charList) {
+        int counter = 0;
+        for (Set<Set<Character>> answersWithinGroup : charList) {
+            Set<Character> setOfAnswersWithinGroup = IntStream.range(97, 123).mapToObj(ch -> (char) ch).collect(Collectors.toSet());
+            for (Set<Character> passengerAnswers: answersWithinGroup) {
+                setOfAnswersWithinGroup.retainAll(passengerAnswers);
             }
             counter += setOfAnswersWithinGroup.size();
         }
