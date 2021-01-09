@@ -1,9 +1,10 @@
 package eu.joajar.algos.aoc2020.solutions;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-public class Puzzle12 extends DataReaderAndAbstractPuzzle{
+public class Puzzle12 extends DataReaderAndAbstractPuzzle {
     public Puzzle12(String fileName) {
         super(fileName);
     }
@@ -21,7 +22,7 @@ public class Puzzle12 extends DataReaderAndAbstractPuzzle{
     @Override
     public String solveFirstPart() {
         final String[] strings = getData();
-        Coordinates point = new Coordinates();
+        ShipCoordinates point = new ShipCoordinates();
 
         for (String string : strings) {
             final int integer = Integer.parseInt(string.substring(1));
@@ -38,10 +39,12 @@ public class Puzzle12 extends DataReaderAndAbstractPuzzle{
                         case 1 -> point.y -= integer;
                         case 2 -> point.x -= integer;
                         case 3 -> point.y += integer;
+                        default -> {
+                            return "Unable to solve the puzzle!";
+                        }
                     }
                 }
                 default -> {
-                    System.out.println(string.charAt(0));
                     return "Unable to solve the puzzle!";
                 }
             }
@@ -49,13 +52,56 @@ public class Puzzle12 extends DataReaderAndAbstractPuzzle{
         return String.valueOf(Math.abs(point.x) + Math.abs(point.y));
     }
 
+    /**
+     * In this puzzle, when the author writes >>rotate the waypoint around the ship<<,
+     * he means >>rotate the waypoint around point (0,0)<<
+     */
     @Override
     public String solveSecondPart() {
-        return null;
+        final String[] strings = getData();
+        ShipCoordinates ship = new ShipCoordinates();
+        Waypoint waypoint = new Waypoint();
+
+        for (String string : strings) {
+            final int integer = Integer.parseInt(string.substring(1));
+            switch (string.charAt(0)) {
+
+                case 'R' -> {
+                    for (int j = 0; j < integer / 90; j++) {
+                        waypoint = new Waypoint(waypoint.y, -waypoint.x);
+                    }
+                }
+                case 'L' -> {
+                    for (int j = 0; j < integer / 90; j++) {
+                        waypoint = new Waypoint(-waypoint.y, waypoint.x);
+                    }
+                }
+                case 'F' -> {
+                    ship.x += integer * (waypoint.x);
+                    ship.y += integer * (waypoint.y);
+                }
+                case 'N' -> waypoint.y += integer;
+                case 'S' -> waypoint.y -= integer;
+                case 'E' -> waypoint.x += integer;
+                case 'W' -> waypoint.x -= integer;
+                default -> {
+                    System.out.println(string.charAt(0));
+                    return "Unable to solve the puzzle!";
+                }
+            }
+        }
+        return String.valueOf(Math.abs(ship.x) + Math.abs(ship.y));
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    private static class Coordinates {
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    private static class Waypoint {
+        int x = 10;
+        int y = 1;
+    }
+
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    private static class ShipCoordinates {
         int x;
         int y;
         int facing;

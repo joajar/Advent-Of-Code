@@ -10,5 +10,6 @@ public class TestPuzzle12 {
     @Test
     public void day11_tests() {
         assertEquals("879", PUZZLE.solveFirstPart());
+        assertEquals("18107", PUZZLE.solveSecondPart());
     }
 }

@@ -19,4 +19,4 @@ Current status of my work:
 ![](https://badgen.net/badge/09/%E2%98%85%E2%98%85/blue)
 ![](https://badgen.net/badge/10/%E2%98%85%E2%98%85/blue)
 ![](https://badgen.net/badge/11/%E2%98%85%E2%98%85/blue)
-![](https://badgen.net/badge/12/%E2%98%85/blue)
+![](https://badgen.net/badge/12/%E2%98%85%E2%98%85/blue)
