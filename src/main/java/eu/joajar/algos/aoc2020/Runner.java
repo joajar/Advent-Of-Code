@@ -18,7 +18,8 @@ public class Runner {
             new Puzzle09("src/main/resources/InputPuzzle09.txt"),
             new Puzzle10("src/main/resources/InputPuzzle10.txt"),
             new Puzzle11("src/main/resources/InputPuzzle11.txt"),
-            new Puzzle12("src/main/resources/InputPuzzle12.txt")
+            new Puzzle12("src/main/resources/InputPuzzle12.txt"),
+            new Puzzle13("src/main/resources/InputPuzzle13.txt")
     );
 
     public static void main(String[] args) {
