@@ -23,7 +23,7 @@ public class Puzzle13 extends DataReaderAndAbstractPuzzle{
         mapForResult.put(0, Integer.MAX_VALUE);
         int key = 0;
         for (String busNumber: busNumbers) {
-            var value = (int) Math.round(Integer.parseInt(busNumber) * (Math.ceil(timeStamp * 1.0 / Integer.parseInt(busNumber))));
+            var value = (int) Math.round(Integer.parseInt(busNumber) * (Math.ceil(timeStamp * 1.0 / Integer.parseInt(busNumber)))) - timeStamp;
             if (mapForResult.get(key) > value) {
                 mapForResult.remove(key);
                 key = Integer.parseInt(busNumber);
@@ -32,7 +32,7 @@ public class Puzzle13 extends DataReaderAndAbstractPuzzle{
         }
         Integer keyToReturn = mapForResult.keySet().iterator().next();
         Integer valueToReturn = mapForResult.get(keyToReturn);
-        return String.valueOf(keyToReturn * (valueToReturn - timeStamp));
+        return String.valueOf(keyToReturn * valueToReturn);
     }
 
     @Override

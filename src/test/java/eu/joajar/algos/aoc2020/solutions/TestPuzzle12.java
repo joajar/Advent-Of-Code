@@ -8,7 +8,7 @@ public class TestPuzzle12 {
     private static final DataReaderAndAbstractPuzzle PUZZLE = new Puzzle12("src/main/resources/InputPuzzle12.txt");
 
     @Test
-    public void day11_tests() {
+    public void day12_tests() {
         assertEquals("879", PUZZLE.solveFirstPart());
         assertEquals("18107", PUZZLE.solveSecondPart());
     }

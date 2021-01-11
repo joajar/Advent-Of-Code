@@ -51,7 +51,7 @@ public class Puzzle05 extends DataReaderAndAbstractPuzzle {
 
     private static Set<Integer> populateInitialSeatsSet(int lowerMagicNumber, int upperMagicNumber) {
         Set<Integer> setToPopulate = new HashSet<>();
-        for (Integer i = lowerMagicNumber + 1; i < Math.min(upperMagicNumber, Math.pow(2, 10)); i++) {
+        for (int i = lowerMagicNumber + 1; i < Math.min(upperMagicNumber, Math.pow(2, 10)); i++) {
             setToPopulate.add(i);
         }
         return setToPopulate;

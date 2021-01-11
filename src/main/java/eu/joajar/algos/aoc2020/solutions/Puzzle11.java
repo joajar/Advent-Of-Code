@@ -1,5 +1,8 @@
 package eu.joajar.algos.aoc2020.solutions;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,6 +20,9 @@ public class Puzzle11 extends DataReaderAndAbstractPuzzle {
 
     final int maxX = getData()[0].length();
     final int maxY = getData().length;
+    char empty = 'L';
+    char occupied = '#';
+    char floor = '.';
 
     @Override
     public String solveFirstPart() {
@@ -33,9 +39,6 @@ public class Puzzle11 extends DataReaderAndAbstractPuzzle {
     }
 
     private String[] iterateFor2Part(String[] initStrings) {
-        char empty = "L".charAt(0);
-        char occupied = "#".charAt(0);
-        char floor = ".".charAt(0);
         String[] newStrings = new String[maxY];
 
         Set<Coordinates> neighboursCoordinates;
@@ -73,8 +76,6 @@ public class Puzzle11 extends DataReaderAndAbstractPuzzle {
     }
 
     private Set<Coordinates> findAdjacentSeats(Coordinates seat, String[] initStrings) {
-        char floor = ".".charAt(0);
-
         Set<Coordinates> neighboursCoordinates = new HashSet<>();
 
         for (int y = seat.y - 1; y >= 0; y--) {
@@ -150,9 +151,6 @@ public class Puzzle11 extends DataReaderAndAbstractPuzzle {
     }
 
     private String[] iterateFor1Part(String[] initStrings) {
-        char empty = "L".charAt(0);
-        char occupied = "#".charAt(0);
-        char floor = ".".charAt(0);
         String[] newStrings = new String[maxY];
 
         Set<Coordinates> coordinatesForAdjacentSeats = Stream.of(
@@ -226,13 +224,9 @@ public class Puzzle11 extends DataReaderAndAbstractPuzzle {
         return true;
     }
 
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     private static class Coordinates {
         int x;
         int y;
-
-        private Coordinates(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
     }
 }

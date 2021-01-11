@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPuzzle13 {
-    private static final DataReaderAndAbstractPuzzle PUZZLE = new Puzzle13("src/main/resources/InputPuzzle14.txt");
+    private static final DataReaderAndAbstractPuzzle PUZZLE = new Puzzle13("src/main/resources/InputPuzzle13.txt");
 
     @Test
-    public void day11_tests() {
-        assertEquals("", PUZZLE.solveFirstPart());
+    public void day13_tests() {
+        assertEquals("203", PUZZLE.solveFirstPart());
     }
 }
