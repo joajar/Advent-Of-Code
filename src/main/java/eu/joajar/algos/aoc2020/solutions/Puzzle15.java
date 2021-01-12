@@ -16,6 +16,15 @@ public class Puzzle15 extends DataReaderAndAbstractPuzzle{
 
     @Override
     public String solveFirstPart() {
+        return memoryGame(2020);
+    }
+
+    @Override
+    public String solveSecondPart() {
+        return memoryGame(30_000_000);
+    }
+
+    private String memoryGame(int turnNumber) {
         int[] numbers = Arrays.stream(getData()[0].split(",")).mapToInt(Integer::parseInt).toArray();
         Map<Integer, Integer> whatWasSpokenAndWhen = new HashMap<>();
 
@@ -26,7 +35,7 @@ public class Puzzle15 extends DataReaderAndAbstractPuzzle{
         int lastNumberSpoken = numbers[numbers.length - 1];
         int toSpoke;
 
-        for (int i = numbers.length + 1; i <= 2020; i++) {
+        for (int i = numbers.length + 1; i <= turnNumber; i++) {
             if (whatWasSpokenAndWhen.containsKey(lastNumberSpoken)) {
                 toSpoke = i - 1 - whatWasSpokenAndWhen.get(lastNumberSpoken);
                 whatWasSpokenAndWhen.replace(lastNumberSpoken, i - 1);
@@ -37,10 +46,5 @@ public class Puzzle15 extends DataReaderAndAbstractPuzzle{
             }
         }
         return String.valueOf(lastNumberSpoken);
-    }
-
-    @Override
-    public String solveSecondPart() {
-        return "";
     }
 }
