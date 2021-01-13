@@ -82,11 +82,20 @@ public class Puzzle16 extends DataReaderAndAbstractPuzzle {
                 .mapToInt(Integer::parseInt)
                 .toArray();
 
-            allIntervals.put(intervalsBoundaries[0], intervalsBoundaries[1]);
-            allIntervals.put(intervalsBoundaries[2], intervalsBoundaries[3]);
-
+            addInterval(allIntervals, intervalsBoundaries[0], intervalsBoundaries[1]);
+            addInterval(allIntervals, intervalsBoundaries[2], intervalsBoundaries[3]);
             ++index;
         }
         return allIntervals;
+    }
+
+    private Map<Integer, Integer> addInterval(Map<Integer, Integer> intervalMap, int lowerBound, int upperBound){
+        if (intervalMap.containsKey(lowerBound)) {
+            intervalMap.replace(lowerBound, Math.max(intervalMap.get(lowerBound), upperBound));
+        } else {
+            intervalMap.put(lowerBound, upperBound);
+        }
+
+        return intervalMap;
     }
 }
