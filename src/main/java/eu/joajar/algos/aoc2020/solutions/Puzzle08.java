@@ -51,13 +51,12 @@ public class Puzzle08 extends DataReaderAndAbstractPuzzle {
     }
 
     private Instruction[] produceChangedInstructions(Instruction[] instructions, int index) {
-        Instruction[] transformedInstructions = instructions;
         if (instructions[index].operation.equals("nop")) {
-            transformedInstructions[index] = Instruction.nopIntoJmp(instructions[index]);
+            instructions[index] = Instruction.nopIntoJmp(instructions[index]);
         } else if (instructions[index].operation.equals("jmp")) {
-            transformedInstructions[index] = Instruction.jmpIntoNop(instructions[index]);
+            instructions[index] = Instruction.jmpIntoNop(instructions[index]);
         }
-        return transformedInstructions;
+        return instructions;
     }
 
     @Override
