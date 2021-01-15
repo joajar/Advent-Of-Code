@@ -20,6 +20,7 @@ public class Runner {
             new Puzzle11("src/main/resources/InputPuzzle11.txt"),
             new Puzzle12("src/main/resources/InputPuzzle12.txt"),
             new Puzzle13("src/main/resources/InputPuzzle13.txt"),
+            new Puzzle14("src/main/resources/InputPuzzle14.txt"),
             new Puzzle15("src/main/resources/InputPuzzle15.txt"),
             new Puzzle16("src/main/resources/InputPuzzle16.txt")
     );
