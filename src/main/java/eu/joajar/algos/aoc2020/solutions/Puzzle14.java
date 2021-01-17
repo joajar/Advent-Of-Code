@@ -16,14 +16,15 @@ public class Puzzle14 extends DataReaderAndAbstractPuzzle {
     @Override
     public String solveFirstPart() {
         var lines = getData();
-        var result = new HashMap<>();
+        Map<Long, Long> result = new HashMap<>();
         long maskX_to_1 = 0, maskX_to_0 = 0;
 
-        for (String line : lines) {
+        for (String line: lines) {
 
-            String[] strings = Arrays.stream(
+            var strings = Arrays.stream(
                 line
                     .replace(" ", "")
+                    .replace("mem", "")
                     .split("[\\[\\]=]")
             )
                 .filter(x -> !x.isEmpty())
@@ -34,31 +35,27 @@ public class Puzzle14 extends DataReaderAndAbstractPuzzle {
                 maskX_to_0 = Long.parseLong(strings[1].replace("X", "0"), 2);
             } else {
                 result.put(
-                    Integer.parseInt(strings[1]),
-                    maskX_to_1 & Long.parseLong(strings[2]) | maskX_to_0
+                    Long.parseLong(strings[0]),
+                    maskX_to_1 & Long.parseLong(strings[1]) | maskX_to_0
                 );
             }
 
         }
-
-        return String.valueOf(
-            result.values().stream()
-                .mapToLong(b -> Long.parseLong(String.valueOf(b)))
-                .sum()
-        );
+        return calculateResult(result);
     }
 
     @Override
     public String solveSecondPart() {
         var lines = getData();
-        var result = new HashMap<>();
         var mask = "";
+        Map<Long, Long> result = new HashMap<>();
 
         for (String line: lines) {
 
-            String[] strings = Arrays.stream(
+            var strings = Arrays.stream(
                 line
                     .replace(" ", "")
+                    .replace("mem", "")
                     .split("[\\[\\]=]")
             )
                 .filter(x -> !x.isEmpty())
@@ -67,46 +64,49 @@ public class Puzzle14 extends DataReaderAndAbstractPuzzle {
             if (strings[0].equals("mask")) {
                 mask = strings[1];
             } else {
-                int significantDigitsNumber = Math.max(
+                var memory = Long.toBinaryString(Long.parseLong(strings[0]));
+                var value = Long.parseLong(strings[1]);
+                var significantDigitsNumber = Math.max(
                     Long.toBinaryString(Long.parseLong(mask.replace("X", "1"), 2)).length(),
-                    Long.toBinaryString(Long.parseLong(strings[1])).length()
+                    memory.length()
                 );
-                char[] floatingMemoryAddress = mask.toCharArray();
-                char[] dataValue = (new String(new char[36 - Long.toBinaryString(Long.parseLong(strings[1])).length()])
-                        .replace("\0", "0") + Long.toBinaryString(Long.parseLong(strings[1])))
+                var maskToCharArray = mask.toCharArray();
+                var dataValue = (new String(new char[36 - memory.length()])
+                    .replace("\0", "0") + memory)
                     .toCharArray();
 
-                for (int i = mask.length() - significantDigitsNumber; i < mask.length(); i++) {
-                    if (floatingMemoryAddress[i] == '0') {
-                        floatingMemoryAddress[i] = dataValue[i];
+                for (var i = mask.length() - significantDigitsNumber; i < mask.length(); i++) {
+                    if (maskToCharArray[i] == '0') {
+                        maskToCharArray[i] = dataValue[i];
                     }
                 }
 
-                Set<String> s1 = new CopyOnWriteArraySet<>();
-                s1.add(String.valueOf(floatingMemoryAddress));
+                Set<String> stringSet1 = new CopyOnWriteArraySet<>();
+                stringSet1.add(String.valueOf(maskToCharArray));
 
-                long exponent = mask.chars().filter(l -> l == 'X').count();
+                var howManyX = mask.chars().filter(l -> l == 'X').count();
 
-                for (int i = 0; i < exponent; i++) {
-                    Set<String> s2 = new CopyOnWriteArraySet<>();
-                    for (String str : s1) {
-                        String str0 = str.replaceFirst("X", "0");
-                        String str1 = str.replaceFirst("X", "1");
-                        s2.add(str0);
-                        s2.add(str1);
-                        s1 = s2;
+                for (var i = 0; i < howManyX; i++) {
+                    Set<String> stringSet2 = new CopyOnWriteArraySet<>();
+                    for (String str: stringSet1) {
+                        stringSet2.add(str.replaceFirst("X", "0"));
+                        stringSet2.add(str.replaceFirst("X", "1"));
+                        stringSet1 = stringSet2;
                     }
                 }
 
-                for (String s4 : s1) {
-                    result.put(s4, Long.parseLong(strings[2]));
+                for (var s4: stringSet1) {
+                    result.put(Long.parseLong(s4, 2), value);
                 }
             }
         }
+        return calculateResult(result);
+    }
 
+    private String calculateResult(Map<Long, Long> map) {
         return String.valueOf(
-            result.values().stream()
-                .mapToLong(b -> Long.parseLong(String.valueOf(b)))
+            map.values().stream()
+                .mapToLong(value -> value)
                 .sum()
         );
     }
