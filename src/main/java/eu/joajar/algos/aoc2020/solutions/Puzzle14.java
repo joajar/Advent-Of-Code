@@ -1,7 +1,11 @@
 package eu.joajar.algos.aoc2020.solutions;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.regex.Pattern;
 
 public class Puzzle14 extends DataReaderAndAbstractPuzzle {
     public Puzzle14(String fileName) {
@@ -16,8 +20,9 @@ public class Puzzle14 extends DataReaderAndAbstractPuzzle {
     @Override
     public String solveFirstPart() {
         var lines = getData();
-        Map<Long, Long> result = new HashMap<>();
+        var pattern = Pattern.compile("mask = ([01X]{36})$");
         long maskX_to_1 = 0, maskX_to_0 = 0;
+        Map<Long, Long> result = new HashMap<>();
 
         for (String line: lines) {
 
@@ -30,7 +35,8 @@ public class Puzzle14 extends DataReaderAndAbstractPuzzle {
                 .filter(x -> !x.isEmpty())
                 .toArray(String[]::new);
 
-            if (strings[0].equals("mask")) {
+            var matcher = pattern.matcher(line);
+            if (matcher.find()) {
                 maskX_to_1 = Long.parseLong(strings[1].replace("X", "1"), 2);
                 maskX_to_0 = Long.parseLong(strings[1].replace("X", "0"), 2);
             } else {
@@ -47,6 +53,7 @@ public class Puzzle14 extends DataReaderAndAbstractPuzzle {
     @Override
     public String solveSecondPart() {
         var lines = getData();
+        var pattern = Pattern.compile("mask = ([01X]{36})$");
         var mask = "";
         Map<Long, Long> result = new HashMap<>();
 
@@ -61,7 +68,8 @@ public class Puzzle14 extends DataReaderAndAbstractPuzzle {
                 .filter(x -> !x.isEmpty())
                 .toArray(String[]::new);
 
-            if (strings[0].equals("mask")) {
+            var matcher = pattern.matcher(line);
+            if (matcher.find()) {
                 mask = strings[1];
             } else {
                 var memory = Long.toBinaryString(Long.parseLong(strings[0]));
