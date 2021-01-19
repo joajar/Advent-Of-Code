@@ -20,26 +20,27 @@ public class Puzzle14 extends DataReaderAndAbstractPuzzle {
     @Override
     public String solveFirstPart() {
         var lines = getData();
-        var pattern = Pattern.compile("mask = ([01X]{36})$");
+        var bitMaskPattern = Pattern.compile("([01X]{36})$");
         long maskX_to_1 = 0, maskX_to_0 = 0;
         Map<Long, Long> result = new HashMap<>();
 
         for (String line: lines) {
 
-            var strings = Arrays.stream(
-                line
-                    .replace(" ", "")
-                    .replace("mem", "")
-                    .split("[\\[\\]=]")
-            )
-                .filter(x -> !x.isEmpty())
-                .toArray(String[]::new);
+            var matcher = bitMaskPattern.matcher(line);
 
-            var matcher = pattern.matcher(line);
             if (matcher.find()) {
-                maskX_to_1 = Long.parseLong(strings[1].replace("X", "1"), 2);
-                maskX_to_0 = Long.parseLong(strings[1].replace("X", "0"), 2);
+                maskX_to_1 = Long.parseLong(matcher.group().replace("X", "1"), 2);
+                maskX_to_0 = Long.parseLong(matcher.group().replace("X", "0"), 2);
             } else {
+                var strings = Arrays.stream(
+                    line
+                        .replace(" ", "")
+                        .replace("mem", "")
+                        .split("[\\[\\]=]")
+                )
+                    .filter(x -> !x.isEmpty())
+                    .toArray(String[]::new);
+
                 result.put(
                     Long.parseLong(strings[0]),
                     maskX_to_1 & Long.parseLong(strings[1]) | maskX_to_0
@@ -53,7 +54,7 @@ public class Puzzle14 extends DataReaderAndAbstractPuzzle {
     @Override
     public String solveSecondPart() {
         var lines = getData();
-        var pattern = Pattern.compile("mask = ([01X]{36})$");
+        var pattern = Pattern.compile("([01X]{36})$");
         var mask = "";
         Map<Long, Long> result = new HashMap<>();
 
@@ -70,7 +71,7 @@ public class Puzzle14 extends DataReaderAndAbstractPuzzle {
 
             var matcher = pattern.matcher(line);
             if (matcher.find()) {
-                mask = strings[1];
+                mask = matcher.group();
             } else {
                 var memory = Long.toBinaryString(Long.parseLong(strings[0]));
                 var value = Long.parseLong(strings[1]);
